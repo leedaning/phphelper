@@ -1,7 +1,8 @@
 <?php
-namespace Study\phphelper\http;
+namespace phphelper\http;
 
 /**
+ * curl模拟http请求相关
  * @Author: Leen
  * @Date:   2021-01-04 14:47:28
  * @Email:  lining@yoozoo.com
@@ -10,7 +11,7 @@ namespace Study\phphelper\http;
 /**
  *
  */
-class Curl
+class CurlReleated
 {
 
     private static $_instance = null;
@@ -19,7 +20,6 @@ class Curl
 
     public static function getInstance()
     {
-        die('模拟curl');
         if ( !(self::$_instance instanceof self) ) {
             self::$_instance = new self();
         }
