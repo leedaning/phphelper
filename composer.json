@@ -1,6 +1,8 @@
 {
     "name": "leedaning/phphelper",
     "description": "php common function",
+    "keywords": ["php","common","helper"],
+    "homepage": "https://github.com/leedaning/phphelper",
     "authors": [{
         "name": "leedaning",
         "email": "leedaning@163.com"
@@ -12,7 +14,8 @@
     },
     "autoload": {
         "psr-4": {
-            "phphelper\\http\\": "src/phphelper/http"
+            // "phphelper\\http\\": "src/phphelper/http"
+            "phphelper\\http\\": ""
         }
     }
 }
