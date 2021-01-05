@@ -1,6 +1,6 @@
 <?php
 
-namespace phphelper\export;
+namespace leen\phphelper\export;
 
 /**
  * php导出大量数据到excel

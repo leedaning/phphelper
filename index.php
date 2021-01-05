@@ -1,8 +1,9 @@
 <?php
-namespace phphelper;
+namespace leen\phphelper;
 
-use \phphelper\http\CurlReleated;
-use \phphelper\http\TimeReleated;
+use leen\phphelper\http\Curl;
+use \leen\phphelper\time\Time;
+use leen\phphelper\Test;
 
 /**
  * @Author: Leen
@@ -11,7 +12,8 @@ use \phphelper\http\TimeReleated;
  * @Last Modified By : Leen
  */
 
-spl_autoload_register(function ($class) {
+// 自动加载一：php spl_autoload_register
+/*spl_autoload_register(function ($class) {
     if ($class) {
         $file = str_replace('\\', '/', $class);
         $file .= '.php';
@@ -20,8 +22,13 @@ spl_autoload_register(function ($class) {
             include "$file";
         }
     }
-});
+});*/
 
-CurlReleated::getInstance();
-TimeReleated::getInstance();
+// 自动加载二：composer autoload
+// print_r(require_once __DIR__ . '/vendor/autoload.php');die;
+require_once __DIR__ . '/vendor/autoload.php';
 
+
+Curl::getInstance();
+Time::getInstance();
+Test::getInstance();

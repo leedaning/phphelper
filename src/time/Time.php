@@ -1,5 +1,5 @@
 <?php
-namespace phphelper\time;
+namespace leen\phphelper\time;
 
 /**
  * 时间处理相关

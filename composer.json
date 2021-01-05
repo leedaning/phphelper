@@ -1,7 +1,7 @@
 {
     "name": "leedaning/phphelper",
     "description": "php common function",
-    "keywords": ["php","common","helper"],
+    "keywords": ["php","common","helper","function"],
     "homepage": "https://github.com/leedaning/phphelper",
     "authors": [{
         "name": "leedaning",
@@ -14,7 +14,7 @@
     },
     "autoload": {
         "psr-4": {
-            "phphelper\\http\\": ""
+            "leen\\phphelper\\": "src/"
         }
     }
 }

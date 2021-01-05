@@ -1,5 +1,5 @@
 <?php
-namespace phphelper\http;
+namespace leen\phphelper\http;
 
 /**
  * curl模拟http请求相关
