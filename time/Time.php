@@ -1,5 +1,5 @@
 <?php
-namespace phphelper\http;
+namespace phphelper\time;
 
 /**
  * 时间处理相关
@@ -8,7 +8,7 @@ namespace phphelper\http;
  * @Email:  lining@yoozoo.com
  * @Last Modified By : Leen
  */
-class TimeReleated
+class Time
 {
 
     private static $_instance = null;

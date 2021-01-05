@@ -11,7 +11,7 @@ namespace phphelper\http;
 /**
  *
  */
-class CurlReleated
+class Curl
 {
 
     private static $_instance = null;
