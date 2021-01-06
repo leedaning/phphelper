@@ -80,4 +80,58 @@ class Time
         });
         return $date_arr;
     }
+
+    /**
+     * [getDate 根据时区获取对应时区当前的日期]
+     * 常用时区及编码如下：
+     *     Asia/Shanghai – 上海
+     *     Asia/Chongqing – 重庆
+     *     Asia/Urumqi – 乌鲁木齐
+     *     Asia/Hong_Kong – 香港
+     *     Asia/Macao – 澳门
+     * @method   getDate
+     * @param    string                   $timeZone   [时区，如：utc, cst表示四个时区，使用北京时间可以用Asia/Shanghai]
+     * @param    string                   $dateFormat [日期格式]
+     * @return   [type]                               [description]
+     * @DateTime 2021-01-06T15:02:54+0800
+     * @Author   Leen
+     */
+    public static function getDate($timeZone = 'UTC', $dateFormat = 'Y-m-d H:i:s')
+    {
+        $d = new \DateTime();
+        $d->setTimezone(new \DateTimeZone($timeZone));
+        return $d->format($dateFormat);
+    }
+
+    /**
+     * [dateFormat 格式化日期]
+     * @method   dateFormat
+     * @param    [type]                   $date       [日期]
+     * @param    string                   $dateFormat [格式]
+     * @return   [type]                               [description]
+     * @DateTime 2021-01-06T15:04:44+0800
+     * @Author   Leen
+     */
+    public static function dateFormat($date, $dateFormat = 'Ymd')
+    {
+        return date($dateFormat, strtotime($date));
+    }
+
+    /**
+     * [judgeDate 验证日期是否是合法的日期]
+     * @method   judgeDate
+     * @param    string                   $date_format [description]
+     * @param    [type]                   $date        [description]
+     * @return   [type]                                [description]
+     * @DateTime 2021-01-06T15:05:26+0800
+     * @Author   Leen
+     */
+    public static function judgeDate($date_format='Y-m-d', $date)
+    {
+        if ($date == date($date_format, strtotime($date))) {
+            return 1;
+        }
+        return 0;
+    }
+
 }
