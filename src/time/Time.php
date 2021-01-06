@@ -17,7 +17,7 @@ class Time
 
     public static function getInstance()
     {
-        if ( !(self::$_instance instanceof self) ) {
+        if (!(self::$_instance instanceof self)) {
             self::$_instance = new self();
         }
 
@@ -34,7 +34,7 @@ class Time
      * @DateTime 2021-01-04T16:49:52+0800
      * @Author   Leen
      */
-    public static function timeHandle($times, $offset=60*60*24, $type='-')
+    public static function timeHandle($times, $offset = 60 * 60 * 24, $type = '-')
     {
         $timeArr = [];
         foreach ($times as $key => $value) {
@@ -63,21 +63,26 @@ class Time
      * @DateTime 2021-01-04T16:50:27+0800
      * @Author   Leen
      */
-    public static function createDateArr($start_time, $end_time, $date_format='Ymd', $step=60*60*24, $field=[])
+    public static function createDateArr($start_time, $end_time, $date_format = 'Ymd', $step = 60 * 60 * 24, $field = [])
     {
         $start_time = strtotime($start_time) ? strtotime($start_time) : $start_time;
         $end_time = strtotime($end_time) ? strtotime($end_time) : $end_time;
-        if (abs($start_time-$end_time)>=$step) {
+        if (abs($start_time - $end_time) >= $step) {
             $arr = range($start_time, $end_time, $step);
-        }else{
+        } else {
             $arr = [$start_time];
         }
         $date_arr = [];
         // 方法一：
-        array_walk($arr, function(&$item, $key) use($field, &$date_arr, $date_format){
+        array_walk($arr, function (&$item, $key) use ($field, &$date_arr, $date_format) {
             // $date_arr[date($date_format, $item)] = $field;       // 生成指定日期段做为key的数组
-            $date_arr[] = date($date_format, $item);        // 生成指定日期段做为value的数组
+            $date_arr[] = date($date_format, $item); // 生成指定日期段做为value的数组
         });
+        // 方法二：
+        /*$arr = array_map(function($item) use($field, &$date_arr, $date_format){
+            // $date_arr[$item] = $field;       // 生成指定日期段做为key的数组
+            $date_arr[] = date($date_format, $item); // 生成指定日期段做为value的数组
+        }, $arr);*/
         return $date_arr;
     }
 
@@ -126,12 +131,34 @@ class Time
      * @DateTime 2021-01-06T15:05:26+0800
      * @Author   Leen
      */
-    public static function judgeDate($date_format='Y-m-d', $date)
+    public static function judgeDate($date_format = 'Y-m-d', $date)
     {
         if ($date == date($date_format, strtotime($date))) {
             return 1;
         }
         return 0;
+    }
+
+    /**
+     * [current_time  返回当前 Unix 时间戳和微秒数]
+     * @method   current_time
+     * @return   [type]                   [description]
+     * @DateTime 2021-01-06T15:26:22+0800
+     * @Author   Leen
+     *
+     * 查看性能用法：
+     * $start_time = current_time();
+     * for ($i=0; $i < 100000; $i++) {
+     *     test($account, $str, $fun_name);
+     * }
+     * $end_time = current_time();
+     * $use_time = number_format(($end_time-$start_time), 3) * 1000;        //所用时长的毫秒数
+     * echo '<BR>总耗时：'.$use_time.'ms';
+     */
+    public function current_time()
+    {
+        list($usec, $sec) = explode(" ", microtime());
+        return ((float) $usec + (float) $sec);
     }
 
 }
