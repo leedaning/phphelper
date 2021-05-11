@@ -12,8 +12,10 @@ class Time
 {
 
     private static $_instance = null;
-    private function __construct() {}
-    private function __clone() {}
+    private function __construct()
+    {}
+    private function __clone()
+    {}
 
     public static function getInstance()
     {
@@ -80,8 +82,8 @@ class Time
         });
         // 方法二：
         /*$arr = array_map(function($item) use($field, &$date_arr, $date_format){
-            // $date_arr[$item] = $field;       // 生成指定日期段做为key的数组
-            $date_arr[] = date($date_format, $item); // 生成指定日期段做为value的数组
+        // $date_arr[$item] = $field;       // 生成指定日期段做为key的数组
+        $date_arr[] = date($date_format, $item); // 生成指定日期段做为value的数组
         }, $arr);*/
         return $date_arr;
     }
@@ -103,6 +105,7 @@ class Time
      */
     public static function getDate($timeZone = 'UTC', $dateFormat = 'Y-m-d H:i:s')
     {
+        $timeZone = !empty($timeZone) ? $timeZone : date_default_timezone_get();
         $d = new \DateTime();
         $d->setTimezone(new \DateTimeZone($timeZone));
         return $d->format($dateFormat);
@@ -161,4 +164,67 @@ class Time
         return ((float) $usec + (float) $sec);
     }
 
+    /**
+     * [checkDate 检查是否是日期格式]
+     * @method   checkDate
+     * @param    [type]                   $date_time [description]
+     * @return   [type]                              [description]
+     * @DateTime 2021-05-11T10:21:12+0800
+     * @Author   Leen
+     */
+    public static function checkDate($date_time)
+    {
+        try {
+            if (strtotime($date_time) === strtotime(date('Y-m-d H:i:s', strtotime($date_time)))) {
+                return true;
+            }
+        } catch (\Exception $e) { }
+
+        return false;
+    }
+
+    /**
+     * [checkTime 检查是否是时间戳格式]
+     * @method   checkTime
+     * @param    [type]                   $date_time [description]
+     * @return   [type]                              [description]
+     * @DateTime 2021-05-11T10:21:30+0800
+     * @Author   Leen
+     */
+    public static function checkTime($date_time)
+    {
+        try {
+            if ($date_time === strtotime(date('Y-m-d H:i:s', $date_time)) || (ctype_digit($date_time) && $date_time <= 2147483647)) {
+                return true;
+            }
+        } catch (\Exception $e) { }
+
+        return false;
+    }
+
+    /**
+     * [checkDateOrTime 检查是日期类型还是时间戳类型]
+     * 临界值
+     * 时间戳：2147483648
+     * 日期：2038-01-19 03:14:07
+     * @method   checkDateOrTime
+     * @param    [type]                   $date_time [description]
+     * @return   [type]                              [description]
+     * @DateTime 2021-05-11T11:01:37+0800
+     * @Author   Leen
+     */
+    public static function checkDateOrTime($date_time)
+    {
+        $type = '';
+        switch (true) {
+            case self::checkDate($date_time):
+                $type = 'date';
+                break;
+            case self::checkTime($date_time):
+                $type = 'time';
+                break;
+        }
+
+        return $type;
+    }
 }
