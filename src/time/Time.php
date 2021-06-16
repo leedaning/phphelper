@@ -89,6 +89,41 @@ class Time
     }
 
     /**
+     * [createDateAndFieldsArr 生成指定日期段做为key，指定内容做为value的数组，或多维数组]
+     * @method   createDateAndFieldsArr
+     * @param    [type]                   $start_time  [description]
+     * @param    [type]                   $end_time    [description]
+     * @param    string                   $date_format [description]
+     * @param    [type]                   $step        [description]
+     * @param    array                    $fields      [description]
+     * @return   [type]                                [description]
+     * @DateTime 2021-06-16T17:26:02+0800
+     * @Author   Leen
+     */
+    public static function createDateAndFieldsArr($start_time, $end_time, $date_format = 'Ymd', $step = 60 * 60 * 24, $fields = [])
+    {
+        $start_time = strtotime($start_time) ? strtotime($start_time) : $start_time;
+        $end_time = strtotime($end_time) ? strtotime($end_time) : $end_time;
+        if (abs($start_time - $end_time) >= $step) {
+            $arr = range($start_time, $end_time, $step);
+        } else {
+            $arr = [$start_time];
+        }
+        $date_arr = [];
+        // 方法一：
+        array_walk($arr, function (&$item, $key) use ($fields, &$date_arr, $date_format) {
+            $date_arr[date($date_format, $item)] = $fields;       // 生成指定日期段做为key的数组
+            // $date_arr[] = date($date_format, $item); // 生成指定日期段做为value的数组
+        });
+        // 方法二：
+        /*$arr = array_map(function($item) use($fields, &$date_arr, $date_format){
+        // $date_arr[$item] = $fields;       // 生成指定日期段做为key的数组
+        $date_arr[] = date($date_format, $item); // 生成指定日期段做为value的数组
+        }, $arr);*/
+        return $date_arr;
+    }
+
+    /**
      * [getDate 根据时区获取对应时区当前的日期]
      * 常用时区及编码如下：
      *     Asia/Shanghai – 上海
