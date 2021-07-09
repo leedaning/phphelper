@@ -5,7 +5,7 @@ namespace leen\phphelper\export;
  * php导出大量数据到excel
  * @Author: Leen
  * @Date:   2021-01-05 11:56:58
- * @Email:  lining@yoozoo.com
+ * @Email:  leeningln@163.com
  * @Last Modified By : Leen
  */
 

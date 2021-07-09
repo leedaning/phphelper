@@ -5,7 +5,7 @@ namespace leen\phphelper\common;
  * 获取各种信息功能的类
  * @Author: Leen
  * @Date:   2021-01-06 15:15:28
- * @Email:  lining@yoozoo.com
+ * @Email:  leeningln@163.com
  * @Last Modified By : Leen
  */
 class GetInfo

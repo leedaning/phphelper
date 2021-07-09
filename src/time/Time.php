@@ -5,7 +5,7 @@ namespace leen\phphelper\time;
  * 时间处理相关
  * @Author: Leen
  * @Date:   2021-01-04 16:38:59
- * @Email:  lining@yoozoo.com
+ * @Email:  leeningln@163.com
  * @Last Modified By : Leen
  */
 class Time

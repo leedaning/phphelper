@@ -5,7 +5,7 @@ namespace leen\phphelper\string;
  * 字符串处理类
  * @Author: Leen
  * @Date:   2021-01-06 14:57:03
- * @Email:  lining@yoozoo.com
+ * @Email:  leeningln@163.com
  * @Last Modified By : Leen
  */
 class Handle

@@ -7,7 +7,7 @@ use leen\phphelper\time\Time;
 /**
  * @Author: Leen
  * @Date:   2021-01-05 16:12:23
- * @Email:  lining@yoozoo.com
+ * @Email:  leeningln@163.com
  * @Last Modified By : Leen
  */
 class Test
@@ -61,11 +61,36 @@ class Test
         echo PHP_EOL . '<BR>start_time_type:';print_r($start_time_type);
         echo PHP_EOL . '<BR>end_time_type:';print_r($end_time_type);
     }
+
+    /**
+     * [verifyStrtotime 验证strtotime函数的问题]
+     * 临界值：
+     * 1620366999
+     * 1620367000
+     * 临界值：
+     * 1620609999
+     * 1620610000
+     * @method   verifyStrtotime
+     * @param    string                   $times [description]
+     * @return   [type]                          [description]
+     * @DateTime 2021-07-09T14:51:20+0800
+     * @Author   Leen
+     */
+    public static function verifyStrtotime($times)
+    {
+        echo PHP_EOL . '<BR>times:';var_dump($times);
+        $date = date('Y-m-d H:i:s', $times);
+        echo PHP_EOL . '<BR>date:';var_dump($date);
+    }
 }
 
 $obj = Test::getInstance();
 // $obj = new Test();
-
-echo PHP_EOL . '2147483648 日期：'.date('Y-m-d H:i:s', '2147483647');
+/*1620366999
+1620367000*/
+/*echo PHP_EOL . '2147483648 日期：'.date('Y-m-d H:i:s', '2147483647');
 $obj->getDateArr();
-$obj->search();
+$obj->search();*/
+
+$times = $_REQUEST['times'];
+Test::verifyStrtotime($times);

@@ -5,7 +5,7 @@ namespace leen\phphelper\http;
  * curl模拟http请求相关
  * @Author: Leen
  * @Date:   2021-01-04 14:47:28
- * @Email:  lining@yoozoo.com
+ * @Email:  leeningln@163.com
  * @Last Modified By : Leen
  */
 /**

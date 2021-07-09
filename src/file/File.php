@@ -5,7 +5,7 @@ namespace leen\phphelper\file;
  * 文件相关功能类
  * @Author: Leen
  * @Date:   2021-01-06 15:06:52
- * @Email:  lining@yoozoo.com
+ * @Email:  leeningln@163.com
  * @Last Modified By : Leen
  */
 class File
