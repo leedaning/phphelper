@@ -271,9 +271,9 @@ class Time
      * @DateTime 2021-07-27T16:57:11+0800
      * @Author   Leen
      */
-    public static function dtPeriod($date, $fmt = 'Y-m-d')
+    public static function dtPeriod($date, $fmt = 'Y-m-d', $period=60 * 60 * 24)
     {
-        return self::checkDateOrTime($date) == 'time' ? (date($fmt, ($date - 60 * 60 * 24))) : date($fmt, (strtotime($date) - 60 * 60 * 24) );
+        return self::checkDateOrTime($date) == 'time' ? (date($fmt, ($date - $period))) : date($fmt, (strtotime($date) - $period) );
     }
 
 }
