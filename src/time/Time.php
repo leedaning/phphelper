@@ -262,4 +262,18 @@ class Time
 
         return $type;
     }
+
+    /**
+     * [dtPeriod 获取由指定时间往前推一段时间的日期数据]
+     * @method   dtPeriod
+     * @param    string                   $value [description]
+     * @return   [type]                          [datetime]
+     * @DateTime 2021-07-27T16:57:11+0800
+     * @Author   Leen
+     */
+    public static function dtPeriod($date, $fmt = 'Y-m-d')
+    {
+        return self::checkDateOrTime($date) == 'time' ? (date($fmt, ($date - 60 * 60 * 24))) : date($fmt, (strtotime($date) - 60 * 60 * 24) );
+    }
+
 }

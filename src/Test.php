@@ -94,3 +94,6 @@ $obj->search();*/
 
 $times = $_REQUEST['times'];
 Test::verifyStrtotime($times);
+
+$date = Time::dtPeriod($times, $fmt = 'Y-m-d');
+echo PHP_EOL . '<BR>data:';print_r($date);
