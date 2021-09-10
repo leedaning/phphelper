@@ -276,4 +276,37 @@ class Time
         return self::checkDateOrTime($date) == 'time' ? (date($fmt, ($date - $period))) : date($fmt, (strtotime($date) - $period) );
     }
 
+    /**
+     * [timeToDate 将时间戳转换为日期，支持超过int最大值2147483647的时间戳]
+     * @method   timeToDate
+     * @param    [type]                   $time     [时间戳]
+     * @param    string                   $date_fmt [日期格式，如:Y-m-d H:i:s]
+     * @param    string                   $timezone [时区，如:UTC、PRC、Asia/Shanghai]
+     * @return   [type]                             [description]
+     * @DateTime 2021-09-10T11:35:22+0800
+     * @Author   Leen
+     */
+    public static function timeToDate($time, $date_fmt='Y-m-d H:i:s', $timezone='Asia/Shanghai')
+    {
+        $dateTimeObj = new \DateTime("@$time");
+        $dateTimeObj->setTimeZone(new \DateTimeZone($timezone));
+        return $dateTimeObj->format($date_fmt);
+    }
+
+    /**
+     * [dateToTime 将日期转换为时间戳，可支持2038-01-19 11:14:07以后的日期]
+     * @method   dateToTime
+     * @param    [type]                   $date     [日期]
+     * @param    string                   $timezone [时区，如:UTC、PRC、Asia/Shanghai]
+     * @return   [type]                             [description]
+     * @DateTime 2021-09-10T11:37:15+0800
+     * @Author   Leen
+     */
+    public static function dateToTime($date, $timezone='UTC')
+    {
+        $dateTimeObj = new \DateTime("$date");
+        $dateTimeObj->setTimeZone(new \DateTimeZone($timezone));
+        return $dateTimeObj->format('U');
+    }
+
 }
