@@ -30,14 +30,14 @@ class Excel
      * @method   exportToExcel
      * @param    [type]                   $data     [导出的数据; eg:[['name'=>'leen', 'sex'=>'male', 'weight'=>'60'], ['name'=>'leedaning', 'weight'=>'60']]]
      * @param    [type]                   $columns  [导出的列的key的数组，取值时是根据data中每个行数据的key取值; eg:['name', 'sex', 'weight'];]
-     * @param    [type]                   $titles   [header名称; eg:['姓名', '性别', '体重']，没有用到]
+     * @param    [type]                   $titles   [header名称; eg:['name'=>'姓名', 'sex'=>'性别', 'weight'=>'体重']]
      * @param    string                   $fileName [导出的文件名称]
      * @param    string                   $fileExt  [导出的文件格式，必须为csv]
      * @return   [type]                             [description]
      * @DateTime 2021-01-05T11:58:06+0800
      * @Author   Leen
      */
-    public static function exportToExcel($data, $columns, $titles, $fileName = 'file', $fileExt = 'csv')
+    public static function exportToExcel($data, $columns, $titles=[], $fileName = 'file', $fileExt = 'csv')
     {
         ini_set('memory_limit','1024M');
         // ini_set('max_execution_time',0);
@@ -48,8 +48,11 @@ class Excel
         // header( 'Content-Disposition: attachment;filename='.$fileName.$fileExt); //attachment新窗口打印inline本窗口打印
         header('Content-Disposition:attachment;filename="' . $fileName . '.csv"');
         $fp = fopen('php://output', 'a');
-        mb_convert_variables('GBK', 'UTF-8', $columns);
-        fputcsv($fp, $columns);
+        if (empty($titles)) {
+            $titles = $columns;
+        }
+        mb_convert_variables('GBK', 'UTF-8', $titles);
+        fputcsv($fp, $titles);
 
         // 如果是大量数据可以在这里循环从数据库中获取，比如，每次获取1000条
 
