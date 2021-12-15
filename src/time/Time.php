@@ -309,4 +309,17 @@ class Time
         return $dateTimeObj->format('U');
     }
 
+    /**
+     * [getWholeWeek 获取周的开始时间和结束时间(时间戳)]
+     * @method   getWholeWeek
+     * @param    integer                  $multiple [倍数，0:当前周;1:下一周; -1:前一周;]
+     * @return   [type]                             [description]
+     * @DateTime 2021-12-15T18:31:27+0800
+     * @Author   Leen
+     */
+    public static function getWholeWeek($multiple=0)
+    {
+        return ['start_time'=>mktime(0, 0 , 0, date("m"),date("d")-date("w")+1+(7 * $multiple),date("Y")), 'end_time'=>mktime(23, 59, 59, date("m"),date("d")-date("w")+7+(7 * $multiple),date("Y"))];
+    }
+
 }

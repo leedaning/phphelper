@@ -92,7 +92,7 @@ $obj = Test::getInstance();
 $obj->getDateArr();
 $obj->search();*/
 
-$times = $_REQUEST['times'];
+$times = isset($_REQUEST['times']) ? $_REQUEST['times'] : time();
 Test::verifyStrtotime($times);
 
 $date = Time::dtPeriod($times, $fmt = 'Y-m-d', 60 * 60 * 24 * 7);
