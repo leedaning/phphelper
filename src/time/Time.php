@@ -210,7 +210,8 @@ class Time
     public static function checkDate($date_time)
     {
         try {
-            if (strtotime($date_time) === strtotime(date('Y-m-d H:i:s', strtotime($date_time))) && strtotime($date_time) <= 2147483647) {
+            // if (strtotime($date_time) === strtotime(date('Y-m-d H:i:s', strtotime($date_time))) && strtotime($date_time) <= 2147483647) {
+            if ($date_time === date('Y-m-d H:i:s', strtotime($date_time))) {
                 return true;
             }
         } catch (\Exception $e) { }
