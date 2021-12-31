@@ -43,8 +43,6 @@ class Curl
     public static function send($url, $method='get', $data = array(), $https = false, $time_out=3, $postDataType='')
     {
         $user_agent =isset($_SERVER['HTTP_USER_AGENT'])?$_SERVER['HTTP_USER_AGENT']:'';
-
-        $user_agent         =  $_SERVER['HTTP_USER_AGENT'];
         $curlPost = '';
         if(!empty($data)){
             $curlPost = http_build_query($data);
