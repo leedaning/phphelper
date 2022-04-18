@@ -193,7 +193,7 @@ class Time
      * $use_time = number_format(($end_time-$start_time), 3) * 1000;        //所用时长的毫秒数
      * echo '<BR>总耗时：'.$use_time.'ms';
      */
-    public function current_time()
+    public static function current_time()
     {
         list($usec, $sec) = explode(" ", microtime());
         return ((float) $usec + (float) $sec);
