@@ -323,4 +323,31 @@ class Time
         return ['start_time'=>mktime(0, 0 , 0, date("m"),date("d")-date("w")+1+(7 * $multiple),date("Y")), 'end_time'=>mktime(23, 59, 59, date("m"),date("d")-date("w")+7+(7 * $multiple),date("Y"))];
     }
 
+    /**
+     * [getFirDayByMon 根据月份获取月份第一天]
+     * @Author   Leen
+     * @DateTime 2022-04-27T18:24:56+0800
+     * @param    [type]                   $month [月份，如2022-04]
+     * @param    string                   $fmt   [返回的日期格式，如：Y-m-d]
+     * @return   [type]                   [description]
+     */
+    public static function getFirDayByMon($month, $fmt = 'Y-m-d')
+    {
+        //指定月份的第一天
+        // $month = '2020-04';
+        return date($fmt, strtotime("first day of {$month}"));
+    }
+
+    /**
+     * [getLastDayByMon 根据月份获取月份最后一天]
+     * @Author   Leen
+     * @DateTime 2022-04-27T18:27:11+0800
+     * @param    [type]                   $month [月份，如2022-04]
+     * @param    string                   $fmt   [返回的日期格式，如：Y-m-d]
+     * @return   [type]                   [description]
+     */
+    public static function getLastDayByMon($month, $fmt = 'Y-m-d')
+    {
+        return date($fmt, strtotime("{$month} +1 month -1 day"));
+    }
 }
