@@ -74,4 +74,51 @@ class Excel
         ob_end_clean();
         exit;           // 必须加，不然会报错：yii\web\HeadersAlreadySentException: Headers already sent in
     }
+
+    /**
+     * [export 导出excel服务]
+     * @method   export
+     * @param array $data [导出的数据; eg:[['name'=>'leen', 'sex'=>'male', 'weight'=>'60'], ['name'=>'leedaning', 'weight'=>'60']]]
+     * @param array $columns [导出的列的key的数组，取值时是根据data中每个行数据的key取值; eg:['name', 'sex', 'weight'];]
+     * @param array $titles [header名称; eg:['姓名', '性别', '体重']]
+     * @param string $fileName [导出的文件名称]
+     * @param string $fileExt [导出的文件格式]
+     * @throws Exception
+     */
+    public static function export($data, $columns, $titles, $fileName = 'file', $fileExt = 'xlsx')
+    {
+        $fileExt = strtolower($fileExt);
+        if (empty($data)) {
+            throw new Exception(Code::get(Code::EXPORT_DATA_NOT_EMPTY), Code::EXPORT_DATA_NOT_EMPTY);
+        }
+        if (empty($columns)) {
+            throw new Exception(Code::get(Code::EXPORT_COLUMNS_NOT_EMPTY), Code::EXPORT_COLUMNS_NOT_EMPTY);
+        }
+        if (empty($titles)) {
+            throw new Exception(Code::get(Code::EXPORT_HEADERS_NOT_EMPTY), Code::EXPORT_HEADERS_NOT_EMPTY);
+        }
+        if (!in_array($fileExt, ['xls', 'xlsx', 'xml', 'csv'])) {
+            throw new Exception(Code::get(Code::EXT_ERR), Code::EXT_ERR);
+        }
+        try {
+            $headers = [];
+            if (count($columns) == count($titles)) {
+                $headers = array_combine($columns, $titles);
+            }
+            $configs = [
+                'models' => $data,
+                'mode' => 'export', //default value as 'export'
+                'columns' => $columns, //without header working, because the header will be get label from attribute label.
+                'headers' => $headers,
+                'autoSize' => true,
+            ];
+            ob_end_clean();
+            header('pragma:public');
+            header('Content-Type: application/vnd.ms-excel;charset=UTF-8');
+            header("Content-Disposition:attachment;filename=$fileName.$fileExt"); //attachment新窗口打印inline本窗口打印
+            Excel::widget($configs);
+        } catch (Exception $e) {
+            throw new Exception(Code::get(Code::EXPORT_ERR), Code::EXPORT_ERR);
+        }
+    }
 }
