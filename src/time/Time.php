@@ -244,7 +244,7 @@ class Time
      * 时间戳：2147483648
      * 日期：2038-01-19 03:14:07
      * @method   checkDateOrTime
-     * @param    [type]                   $date_time [description]
+     * @param    [type]                   $date_time [Y-m-d H:i:s]
      * @return   [type]                              [description]
      * @DateTime 2021-05-11T11:01:37+0800
      * @Author   Leen

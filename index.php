@@ -5,6 +5,7 @@ use leen\phphelper\http\Curl;
 use \leen\phphelper\time\Time;
 use leen\phphelper\Test;
 use leen\phphelper\number\Number;
+use leen\phphelper\algorithm\ConsistentHash;
 
 /**
  * @Author: Leen
@@ -49,7 +50,7 @@ $pi = 3.1415926;
 echo PHP_EOL . '<BR>pi:'.$pi;
 echo PHP_EOL . '<BR>pi:'. Number::numFormate($pi, 3, 'percentage');*/
 
-echo PHP_EOL . '<BR><BR>';
+/*echo PHP_EOL . '<BR><BR>';
 
 $mytime=mktime(0, 0, 0, date('m'), date('d'), date('Y'));//获取时间戳
 // $dates = date( 'Y-m-d H:i:s', $mytime+(60*60*24-1));
@@ -59,4 +60,15 @@ echo PHP_EOL . '<BR>时间戳：'.$mytime.'<BR>日期：'.$dates;
 echo '<br>上周起始时间:<br>';
 $last_weeks = Time::getWholeWeek(-1);
 echo date("Y-m-d H:i:s",$last_weeks['start_time']),"\n";
-echo date("Y-m-d H:i:s",$last_weeks['end_time']),"\n";
+echo date("Y-m-d H:i:s",$last_weeks['end_time']),"\n";*/
+
+$obj = ConsistentHash::getInstance();
+echo PHP_EOL . '<BR>';var_dump($obj->getNode(['imgName'=>'logo1.png']));
+echo PHP_EOL . '<BR>';var_dump($obj->getNode(['imgName'=>'logo2.png']));
+echo PHP_EOL . '<BR>';var_dump($obj->getNode(['imgName'=>'logo3.png']));
+
+echo PHP_EOL . '<BR>----------------------------------------------------------------';
+$obj2 = ConsistentHash::getInstance();
+echo PHP_EOL . '<BR>';var_dump($obj2->getNode(['imgName'=>'logo4.png']));
+echo PHP_EOL . '<BR>';var_dump($obj2->getNode(['imgName'=>'logo5.png']));
+echo PHP_EOL . '<BR>';var_dump($obj2->getNode(['imgName'=>'logo6.png']));
