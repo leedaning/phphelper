@@ -63,12 +63,7 @@ echo date("Y-m-d H:i:s",$last_weeks['start_time']),"\n";
 echo date("Y-m-d H:i:s",$last_weeks['end_time']),"\n";*/
 
 $obj = ConsistentHash::getInstance();
-echo PHP_EOL . '<BR>';var_dump($obj->getNode(['imgName'=>'logo1.png']));
-echo PHP_EOL . '<BR>';var_dump($obj->getNode(['imgName'=>'logo2.png']));
-echo PHP_EOL . '<BR>';var_dump($obj->getNode(['imgName'=>'logo3.png']));
-
-echo PHP_EOL . '<BR>----------------------------------------------------------------';
-$obj2 = ConsistentHash::getInstance();
-echo PHP_EOL . '<BR>';var_dump($obj2->getNode(['imgName'=>'logo4.png']));
-echo PHP_EOL . '<BR>';var_dump($obj2->getNode(['imgName'=>'logo5.png']));
-echo PHP_EOL . '<BR>';var_dump($obj2->getNode(['imgName'=>'logo6.png']));
+for ($i=0; $i < 20; $i++) {
+    echo PHP_EOL . '<BR>';
+    var_dump($obj->hashMod(['imgName'=>'logo' . $i . '.png']));
+}

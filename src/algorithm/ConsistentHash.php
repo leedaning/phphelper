@@ -28,14 +28,71 @@ class ConsistentHash
     }
 
     /**
-     * [getNode 根据参数值获取数据对应存储的结点]
-     * @method   getNode
+     * 方法一，映射关系
+     * [reflect 映射关系获取结点]
+     * 通过维护一个映射关系，来获取其所在的结点
+     * @method   reflect
+     * @param    array                    $params [description]
+     * @return   [type]                           [description]
+     * @DateTime 2022-11-29T14:58:16+0800
+     * @Author   Leen
+     */
+    public function reflect($params=[])
+    {
+
+        $hostsMap = [
+            'img1.nede.com' => [
+                    'logo1.png',
+                    'logo2.png'
+                ],
+            'img2.node.com' => [
+                    'logo3.png',
+                    'logo4.png'
+                ],
+            'img3.node.com' => [
+                    'logo5.png',
+                    'logo6.png'
+                ],
+        ];
+        foreach ($hostsMap as $node => $imgNames) {
+            if (in_array($params['imgName'], $imgNames)) {
+                return $node;
+            }
+        }
+        return current(array_keys($hostsMap));
+    }
+
+    /**
+     * 方法二：hash取余
+     * [hashMod hash取余]
+     * @method   hashMod
+     * @param    array                    $params [description]
+     * @return   [type]                           [description]
+     * @DateTime 2022-11-29T15:05:31+0800
+     * @Author   Leen
+     */
+    public function hashMod($params=[])
+    {
+        $hostsMap = ['img1.nede.com', 'img2.node.com', 'img3.node.com'];
+        // $mod = abs(fmod(crc32($params['imgName']), count($hostsMap)));
+        $mod = crc32($params['imgName']) % count($hostsMap);
+        echo PHP_EOL . '<BR>mod:';print_r($mod);
+        if ($mod) {
+            return $hostsMap[$mod];
+        }
+        return current($hostsMap);
+    }
+
+    /**
+     * 方法三，hash环
+     * [hashRing 根据参数值获取数据对应存储的结点]
+     * @method   hashRing
      * @param    array                    $params [description]
      * @return   [type]                           [description]
      * @DateTime 2022-11-29T14:44:34+0800
      * @Author   Leen
      */
-    public function getNode($params = [])
+    public function hashRing($params = [])
     {
 
         //计算图片hash
