@@ -63,7 +63,8 @@ echo date("Y-m-d H:i:s",$last_weeks['start_time']),"\n";
 echo date("Y-m-d H:i:s",$last_weeks['end_time']),"\n";*/
 
 $obj = ConsistentHash::getInstance();
+// $obj = ConsistentHash::getInstance('virtual_node');  // 结点虚拟化
 for ($i=0; $i < 20; $i++) {
     echo PHP_EOL . '<BR>';
-    var_dump($obj->hashMod(['imgName'=>'logo' . $i . '.png']));
+    var_dump($obj->virtualHashRing(['imgName'=>'logo' . $i . '.png']));
 }

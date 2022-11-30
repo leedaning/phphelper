@@ -13,9 +13,13 @@ class ConsistentHash
     protected static $hashRing;
     protected static $_instance = null;
 
-    final public function __construct()
+    final public function __construct($type='')
     {
-        self::$hashRing = $this->getHashRing();
+        if (!empty($type) && $type == 'virtual_node') {
+            self::$hashRing = $this->setVirtualHashRing();
+        }else{
+            self::$hashRing = $this->getHashRing();
+        }
     }
     final public function __clone(){}
 
@@ -124,6 +128,55 @@ class ConsistentHash
                 $hostKey = fmod(crc32($h), pow(2, 32));
                 $hostKey = abs($hostKey);
                 $hashRing[$hostKey] = $h;
+            }
+            //从小到大排序，便于查找
+            ksort($hashRing);
+        }
+        return $hashRing;
+    }
+
+    /**
+     * 对每个结点进行虚拟结点，解决hash环分布不均匀的问题
+     * [virtualHashRing description]
+     * @method   virtualHashRing
+     * @param    array                    $params [description]
+     * @return   [type]                           [description]
+     * @DateTime 2022-11-30T10:36:58+0800
+     * @Author   Leen
+     */
+    public function virtualHashRing($params=[])
+    {
+        //计算图片hash
+        $imgKey = fmod(crc32($params['imgName']), pow(2, 32));
+        $imgKey = abs($imgKey);
+
+        foreach (self::$hashRing as $hostKey => $h) {
+            if ($imgKey < $hostKey) {
+                return $h;
+            }
+        }
+        return current(self::$hashRing);
+    }
+
+    /**
+     * [setVirtualHashRing 对hash环结点进行虚拟化结点]
+     * @method   setVirtualHashRing
+     * @DateTime 2022-11-30T10:47:53+0800
+     * @Author   Leen
+     */
+    public function setVirtualHashRing()
+    {
+
+        $hostsMap = ['img1.nede.com', 'img2.node.com', 'img3.node.com'];
+        $hashRing = [];
+        //将节点映射到hash环上面
+        if (empty($hashRing)) {
+            for ($i=0; $i < 10; $i++) {
+                foreach ($hostsMap as $h) {
+                    $hostKey = fmod(crc32($h . $i), pow(2, 32));
+                    $hostKey = abs($hostKey);
+                    $hashRing[$hostKey] = $h;
+                }
             }
             //从小到大排序，便于查找
             ksort($hashRing);
