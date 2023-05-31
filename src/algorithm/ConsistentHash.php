@@ -136,7 +136,7 @@ class ConsistentHash
     }
 
     /**
-     * 对每个结点进行虚拟结点，解决hash环分布不均匀的问题
+     * 方法四，对每个结点进行虚拟结点，解决hash环分布不均匀的问题
      * [virtualHashRing description]
      * @method   virtualHashRing
      * @param    array                    $params [description]
